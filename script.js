@@ -3,34 +3,31 @@ myCanvas.style.width = '100%';
 document.querySelector('.app').appendChild(myCanvas);
 
 (function playCannon() {
-  function randomInRange(min, max) {
-    return Math.random() * (max - min) + min;
-  }
   var myConfetti = confetti.create(myCanvas, {
     resize: true,
     useWorker: true,
   });
 
+  const colors = ['#ff96bc', '#ffc477', '#fbe84a', '#c1f3a1', '#96fce4'];
   function confettiFun() {
-    const max = Math.floor(Math.random() * (7 - 5) + 5);
-    let min = 5;
-    console.log(max);
-    while (min <= max) {
-      let particles = Math.floor(Math.random() * (150 - 300) + 300);
-      myConfetti({
-        angle: randomInRange(55, 125),
-        particleCount: particles,
-        spread: 160,
+    const optionsFunc = (angle, x, y) => {
+      const options = {
+        angle: angle,
+        particleCount: 200,
+        spread: 180,
         origin: {
-          x: Math.random(),
-          // since they fall down, start a bit higher than random
-          y: 0.8,
+          x: x,
+          y: y,
         },
-      });
+        colors: colors,
+      };
 
-      min++;
-    }
-    min = 5;
+      return options;
+    };
+    myConfetti(optionsFunc(295, 0.1, 0));
+    myConfetti(optionsFunc(255, 0.9, 0));
+    myConfetti(optionsFunc(75, 0.1, 1));
+    myConfetti(optionsFunc(125, 0.9, 1));
   }
   confettiFun();
 
