@@ -1,5 +1,6 @@
 var myCanvas = document.createElement('canvas');
 myCanvas.style.width = '100%';
+myCanvas.style.height = '100%';
 document.querySelector('.app').appendChild(myCanvas);
 
 (function playCannon() {
@@ -34,4 +35,5 @@ document.querySelector('.app').appendChild(myCanvas);
   let replay = setTimeout(confettiFun, 500);
   let again = setTimeout(confettiFun, 1000);
   let anotherOne = setTimeout(confettiFun, 1500);
+  let andAgain = setTimeout(confettiFun, 2000);
 })();
