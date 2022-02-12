@@ -10,14 +10,24 @@ const client = new tmi.Client({
 client.connect();
 
 client.on('message', (channel, tags, message, self) => {
-  // "Alca: Hello, World!"
-  console.log(`${tags['display-name']}: ${message}`);
+  if (!message.startsWith('!')) return;
+
+  const args = message.slice(1).split(' ');
+  const command = args.shift().toLowerCase();
+
+  if (command === 'bang') {
+    playCannon();
+  }
 });
 
-(function playCannon() {
+function playCannon() {
   var myConfetti = confetti.create(myCanvas, {
     resize: true,
     useWorker: true,
+  });
+
+  var sound = new Howl({
+    src: ['./fireworks.wav'],
   });
 
   const colors = ['#ff96bc', '#ffc477', '#fbe84a', '#c1f3a1', '#96fce4'];
@@ -33,7 +43,7 @@ client.on('message', (channel, tags, message, self) => {
         },
         colors: colors,
       };
-
+      sound.play();
       return options;
     };
     myConfetti(optionsFunc(295, 0.1, 0));
@@ -47,4 +57,4 @@ client.on('message', (channel, tags, message, self) => {
   let again = setTimeout(confettiFun, 1000);
   let anotherOne = setTimeout(confettiFun, 1500);
   let andAgain = setTimeout(confettiFun, 2000);
-})();
+}
