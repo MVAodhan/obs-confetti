@@ -3,6 +3,17 @@ myCanvas.style.width = '100%';
 myCanvas.style.height = '100%';
 document.querySelector('.app').appendChild(myCanvas);
 
+const client = new tmi.Client({
+  channels: ['usenameaodhan'],
+});
+
+client.connect();
+
+client.on('message', (channel, tags, message, self) => {
+  // "Alca: Hello, World!"
+  console.log(`${tags['display-name']}: ${message}`);
+});
+
 (function playCannon() {
   var myConfetti = confetti.create(myCanvas, {
     resize: true,
