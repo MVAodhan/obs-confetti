@@ -1,6 +1,6 @@
 var myCanvas = document.createElement('canvas');
-myCanvas.style.width = '100%';
-myCanvas.style.height = '100%';
+myCanvas.style.width = '100vw';
+myCanvas.style.height = '100vh';
 document.querySelector('.app').appendChild(myCanvas);
 
 const client = new tmi.Client({
@@ -10,6 +10,8 @@ const client = new tmi.Client({
 client.connect();
 
 client.on('message', (channel, tags, message, self) => {
+  console.log(message);
+
   if (!message.startsWith('!')) return;
 
   const args = message.slice(1).split(' ');
@@ -17,6 +19,7 @@ client.on('message', (channel, tags, message, self) => {
 
   if (command === 'bang') {
     playCannon();
+    console.log('bang fired');
   }
 });
 
@@ -43,13 +46,14 @@ function playCannon() {
         },
         colors: colors,
       };
-      sound.play();
+      // sound.play();
       return options;
     };
     myConfetti(optionsFunc(295, 0.1, 0));
     myConfetti(optionsFunc(255, 0.9, 0));
     myConfetti(optionsFunc(75, 0.1, 1));
     myConfetti(optionsFunc(125, 0.9, 1));
+    sound.play();
   }
   confettiFun();
 
